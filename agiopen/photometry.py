@@ -65,30 +65,46 @@ class Batwing(Distribution):
 
 
 class TabulatedDistribution(Distribution):
-    """Two measured planes, e.g. digitised from a spec-sheet polar plot.
+    """Intensity tabulated on C-planes between 0 and 90 deg (quadrant symmetry).
 
-    `i0` is the plane along the fixture length (phi = 0), `i90` the plane across it. Between
-    planes I(theta, phi) = i0 cos^2(phi) + i90 sin^2(phi). Normalised to a flux of 1.
+    `planes` maps the C angle in degrees (0 = along the fixture length) to intensities at
+    `angles_deg` from nadir. With only the 0 and 90 planes, the two are blended as
+    I0 cos^2(phi) + I90 sin^2(phi); with more planes, linearly in phi. Normalised to a flux of 1.
     """
 
-    def __init__(self, angles_deg, i0, i90=None):
+    def __init__(self, angles_deg, planes: dict):
         self.a = np.radians(np.asarray(angles_deg, dtype=float))
-        self.i0 = np.asarray(i0, dtype=float)
-        self.i90 = self.i0 if i90 is None else np.asarray(i90, dtype=float)
-        if not (len(self.a) == len(self.i0) == len(self.i90)):
-            raise ValueError("Tabulated photometry: angles and planes must have the same length.")
+        items = sorted((float(k), np.asarray(v, dtype=float)) for k, v in planes.items())
+        self.c = np.radians([k for k, _ in items])
+        self.I = np.array([v for _, v in items])
+        if self.I.shape[1] != len(self.a):
+            raise ValueError("Tabulated photometry: each plane needs one value per angle.")
+        if len(self.c) == 1:
+            self.c, self.I = np.radians([0.0, 90.0]), np.vstack([self.I, self.I])
+        if not (np.isclose(self.c[0], 0) and np.isclose(self.c[-1], np.pi / 2)):
+            raise ValueError("Tabulated photometry: planes must start at 0 and end at 90 deg.")
+        self.two_planes = len(self.c) == 2
         th = np.linspace(0, np.pi / 2, 721)
-        ph = np.linspace(0, 2 * np.pi, 181)
+        ph = np.linspace(0, 2 * np.pi, 361)
         T, P = np.meshgrid(th, ph, indexing="ij")
         flux = np.trapezoid(np.trapezoid(self._raw(T, P) * np.sin(T), ph, axis=1), th)
         self.k = 1.0 / float(flux)
 
     def _raw(self, theta, phi):
         theta = np.asarray(theta, dtype=float)
-        c2 = np.cos(np.asarray(phi, dtype=float)) ** 2
-        a = np.interp(theta, self.a, self.i0, right=0.0)
-        b = np.interp(theta, self.a, self.i90, right=0.0)
-        return np.where(theta < np.pi / 2, a * c2 + b * (1 - c2), 0.0)
+        phi = np.mod(np.broadcast_to(np.asarray(phi, dtype=float), theta.shape), np.pi)
+        phi = np.where(phi > np.pi / 2, np.pi - phi, phi)  # fold to [0, 90 deg]
+        per_plane = np.array([np.interp(theta, self.a, row, right=0.0) for row in self.I])
+        if self.two_planes:
+            c2 = np.cos(phi) ** 2
+            out = per_plane[0] * c2 + per_plane[1] * (1 - c2)
+        else:
+            i = np.clip(np.searchsorted(self.c, phi) - 1, 0, len(self.c) - 2)
+            t = (phi - self.c[i]) / (self.c[i + 1] - self.c[i])
+            lo = np.take_along_axis(per_plane, i[None], 0)[0]
+            hi = np.take_along_axis(per_plane, (i + 1)[None], 0)[0]
+            out = lo * (1 - t) + hi * t
+        return np.where(theta < np.pi / 2, out, 0.0)
 
     def intensity(self, theta, phi):
         return self.k * self._raw(theta, phi)

@@ -12,11 +12,11 @@ def dli(model, watts, spectrum, ppf, eff, dims, kg):
     fixtures.append({
         "id": f"dli-{model.lower()}-{watts}w-{sid}",
         "manufacturer": "DLI", "family": fam,
-        "name": f"DLI {model} {watts}W 347-400V {spectrum}" + (" WD" if model == "NXS" else ""),
+        "name": f"DLI {model} {watts}W 347-400V {spectrum}" + " MW",
         "watts": watts, "ppf": ppf, "efficacy": eff, "spectrum": spectrum,
         "length_mm": dims[0], "width_mm": dims[1], "height_mm": dims[2], "weight_kg": kg,
         "voltage": "347-400V", "ip": "IP65", "dimming": "20-100%", "certification": "CSA, DLC",
-        "warranty": "", "photometry": "dli-nxs-wd" if model == "NXS" else "dli-vertex",
+        "warranty": "", "photometry": "dli-nxs-mw" if model == "NXS" else "dli-vertex-mw",
         "source": DLI_SRC,
     })
 

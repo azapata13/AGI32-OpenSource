@@ -54,7 +54,8 @@ dans `docs/sample-report.pdf`.
   le luminaire (voir `docs/fixture-catalog.md`).
 - **Photométrie** : lecture des fichiers IES LM-63 (type C, toutes symétries). Le flux est normalisé
   sur le PPF du luminaire, donc les intensités sortent en µmol/s/sr. Sans fichier IES : courbes
-  du catalogue (ParFX numérisées des fiches, NXS calé sur un rapport réel), ou distributions
+  du catalogue (DLI NXS et Vertex tirées des tests photométriques du fabricant, ParFX numérisées
+  des fiches), ou distributions
   génériques `batwing` (toplights larges « WD ») et `cosine` (barres, Lambert).
 - **Direct** : calcul point par point (loi en 1/d² et cosinus), avec les luminaires linéaires
   découpés en segments et l'occultation par les tablettes supérieures en racking.
@@ -89,8 +90,8 @@ fichier IES du fabricant (`fixtures[].ies_file`), la forme du faisceau devient e
 
 ## Feuille de route
 
-1. Fichiers IES réels pour le catalogue (DLI et P.L. Light ne les publient pas), puis Arize,
-   Philips, Fluence…
+1. Photométrie réelle pour le reste du catalogue (DLI NXS WD, DLI Zenith, P.L. Light), puis
+   Arize, Philips, Fluence…
 2. Radiosité complète pour remplacer l'approximation des réflexions.
 3. Import des plans DWG/DXF pour la géométrie.
 4. Intake : extraction des dimensions directement sur les plans PDF, puis boucle de validation

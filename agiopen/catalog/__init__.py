@@ -3,7 +3,7 @@
 `fixtures.json` holds one entry per fixture variant (watts, PPF, dimensions, warranty...).
 `photometry/*.json` holds named light distributions:
 
-- `model: tabulated`: relative intensity per angle for plane 0 (along the fixture) and 90;
+- `model: tabulated`: intensity per angle on C-planes 0-90 (0 = along the fixture length);
 - `model: batwing` / `cosine`: generic shapes with their parameters.
 
 A project references an entry with `fixtures[].catalog`; any field given in the project
@@ -53,8 +53,7 @@ def distribution(name: str) -> Distribution:
     d = photometry(name)
     model = d.get("model", "tabulated")
     if model == "tabulated":
-        planes = d["planes"]
-        return TabulatedDistribution(d["angles_deg"], planes["0"], planes.get("90"))
+        return TabulatedDistribution(d["angles_deg"], d["planes"])
     if model == "batwing":
         return Batwing(d.get("beam_angle", 120.0), d.get("batwing_power", 1.5))
     if model == "cosine":

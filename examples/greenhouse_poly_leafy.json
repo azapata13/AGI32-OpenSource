@@ -34,7 +34,8 @@
       "name": "NXS 540W 347-400V FR5R85G5B5 MW WD",
       "watts": 546,
       "ppf": 1824,
-      "warranty": "5 year limited warranty"
+      "warranty": "5 year limited warranty",
+      "photometry": "dli-nxs-wd-approx"
     }
   ],
   "canopies": [

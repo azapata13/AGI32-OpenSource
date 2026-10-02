@@ -32,7 +32,7 @@ def test_catalog_photometry_is_normalised(name):
 
 
 def test_tabulated_planes():
-    d = TabulatedDistribution([0, 45, 90], [1, 2, 0], [1, 0.5, 0])
+    d = TabulatedDistribution([0, 45, 90], {"0": [1, 2, 0], "90": [1, 0.5, 0]})
     th = np.radians(45.0)
     assert d.intensity(th, 0.0) == pytest.approx(4 * d.intensity(th, np.pi / 2))
     assert d.intensity(0.0, 0.0) == pytest.approx(d.intensity(0.0, 1.0))
@@ -42,7 +42,7 @@ def test_catalog_fills_fixture_and_overrides_win():
     raw = json.loads((ROOT / "examples/barn_auto_layout.json").read_text())
     raw["fixtures"] = [{"id": "tl", "catalog": "dli-vertex-1050w-r90g5b5"}]
     f = spec_from_dict(raw).fixtures[0]
-    assert (f.watts, f.ppf, f.manufacturer, f.photometry) == (1050, 3925, "DLI", "dli-vertex")
+    assert (f.watts, f.ppf, f.manufacturer, f.photometry) == (1050, 3925, "DLI", "dli-vertex-mw")
     assert f.length == pytest.approx(945 / 304.8, abs=1e-3)  # imperial project -> ft
     raw["fixtures"] = [{"id": "tl", "catalog": "dli-vertex-1050w-r90g5b5", "ppf": 3800}]
     assert spec_from_dict(raw).fixtures[0].ppf == 3800
@@ -53,3 +53,12 @@ def test_unknown_catalog_id_suggests():
     raw["fixtures"] = [{"id": "tl", "catalog": "dli-nxs-540w-r90g5b"}]
     with pytest.raises(SpecError, match="dli-nxs-540w-r90g5b5"):
         spec_from_dict(raw)
+
+
+def test_multi_plane_interpolates_between_planes():
+    d = TabulatedDistribution([0, 45, 90], {"0": [1, 2, 0], "45": [1, 1, 0], "90": [1, 0, 0]})
+    th = np.radians(45.0)
+    assert d.intensity(th, np.radians(22.5)) == pytest.approx(1.5 * d.intensity(th, np.radians(45)))
+    # quadrant symmetry: 180 deg mirrors 0, 270 mirrors 90
+    assert d.intensity(th, np.pi) == pytest.approx(d.intensity(th, 0.0))
+    assert d.intensity(th, 1.5 * np.pi) == pytest.approx(d.intensity(th, np.pi / 2))

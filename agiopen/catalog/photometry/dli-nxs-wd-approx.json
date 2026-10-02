@@ -1,0 +1,10 @@
+{
+ "name": "dli-nxs-wd-approx",
+ "title": "DLI NXS, WD optic (approximation)",
+ "source": "Generic batwing (150 deg, p = 2.5) calibrated on a production AGi32 report that used the NXS WD optic: -1 % on the average",
+ "confidence": "medium",
+ "model": "batwing",
+ "beam_angle": 150,
+ "batwing_power": 2.5,
+ "notes": "The real MW file is much narrower: with it, one fixture at 4 ft already gives 217 umol at nadir, above the 208 maximum of the 36-fixture reference. Use this curve for projects specified with the WD optic until the DLI WD file is available."
+}
