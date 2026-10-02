@@ -163,6 +163,12 @@
           "ies_file": {
             "type": "string"
           },
+          "catalog": {
+            "type": "string"
+          },
+          "photometry": {
+            "type": "string"
+          },
           "distribution": {
             "type": "string",
             "enum": [

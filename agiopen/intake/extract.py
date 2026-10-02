@@ -63,6 +63,9 @@ def extract_spec(paths: list[Path], model: str = DEFAULT_MODEL) -> tuple[dict, l
     system = PROMPT
     if SCHEMA.exists():
         system += "\n\n## JSON schema\n\n" + SCHEMA.read_text(encoding="utf-8")
+    from .. import catalog
+    system += "\n\n## Fixture catalog (id: name, W, PPF)\n\n" + "\n".join(
+        f"{f['id']}: {f['name']}, {f['watts']:g} W, {f['ppf']:g} umol/s" for f in catalog.fixtures().values())
     msg = client.messages.create(
         model=model, max_tokens=16000, system=system,
         messages=[{"role": "user", "content": _blocks(paths) + [

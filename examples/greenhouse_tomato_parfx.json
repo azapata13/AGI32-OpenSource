@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "project_name": "Tomato High-Wire ParFX",
+    "client": "Grower F",
+    "prepared_for": "Grower F",
+    "site_address": "Ontario, Canada",
+    "company": "Example Hort Lighting",
+    "designer": "J. Designer",
+    "units": "metric",
+    "design_hours": 0,
+    "information_provided": [
+      "Serre verre 2 chapelles de 9.6 m x 40 m, 5 m sous ferme",
+      "Tomates en haute tige, tête de plant à 3 m",
+      "Cible 250-300 µmol/m²/s"
+    ],
+    "date": "2026-10-02"
+  },
+  "site": {
+    "type": "greenhouse",
+    "width": 19.2,
+    "length": 40,
+    "height": 5.5,
+    "bays": 2,
+    "roof": "venlo",
+    "peaks_per_bay": 2,
+    "ridge_height": 6.3,
+    "truss_height": 5.0,
+    "post_spacing": 5.0,
+    "glazing_transmission": 0.8,
+    "structure_reflectance": 0.8
+  },
+  "fixtures": [
+    {
+      "id": "parfx",
+      "catalog": "pl-parfx-ultra-plus-1040w-r90w5b5"
+    }
+  ],
+  "canopies": [
+    {
+      "label": "Crop Head",
+      "x": 0.6,
+      "y": 1.0,
+      "width": 18.0,
+      "length": 38.0,
+      "height": 3.0
+    }
+  ],
+  "layout": [
+    {
+      "fixture": "parfx",
+      "mode": "grid",
+      "cols": 5,
+      "rows": 10,
+      "spacing_x": 3.84,
+      "spacing_y": 4.0,
+      "origin_x": 1.92,
+      "origin_y": 2.0,
+      "mounting_height": 4.9
+    }
+  ],
+  "target": {
+    "ppfd_min": 250,
+    "ppfd_max": 300
+  },
+  "calc": {
+    "grid_spacing": 0.5,
+    "extra_planes": [
+      1.0
+    ]
+  }
+}

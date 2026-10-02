@@ -27,9 +27,21 @@ sur la longueur.
 
 ## fixtures
 
-`id`, `name`, `family`, `manufacturer`, `watts`, `ppf`, `warranty`, `dlc_reference`, `image`
-(photo pour la fiche). La photométrie vient de `ies_file` si possible. Sinon :
+Le plus simple : référencer le catalogue (`python -m agiopen catalog vertex` pour chercher).
 
+```json
+{"id": "a", "catalog": "dli-vertex-1050w-r90g5b5"}
+```
+
+Tous les champs sont alors remplis depuis la fiche technique (nom, fabricant, watts, PPF,
+dimensions, garantie, photométrie). Un champ donné dans le projet a priorité sur le catalogue,
+par exemple `"ppf": 3800` si le client a une autre version.
+
+Sinon, champs manuels : `id`, `name`, `family`, `manufacturer`, `watts`, `ppf`, `warranty`,
+`dlc_reference`, `image` (photo pour la fiche). La photométrie, par ordre de priorité :
+
+- `ies_file` : fichier IES du fabricant (le plus précis) ;
+- `photometry` : courbe nommée de `agiopen/catalog/photometry/` (voir `docs/fixture-catalog.md`) ;
 - `distribution: "batwing"` avec `beam_angle` (angle total) et `batwing_power` (2,5 environ
   pour les optiques « WD ») ;
 - `distribution: "cosine"` avec `cos_power` (1 = Lambert).

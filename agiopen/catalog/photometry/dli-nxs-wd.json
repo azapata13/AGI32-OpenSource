@@ -1,0 +1,10 @@
+{
+ "name": "dli-nxs-wd",
+ "title": "DLI NXS WD optic",
+ "source": "Generic batwing calibrated against a production AGi32 report using the NXS 540W WD (benchmark GH-POLY-LEAFY, -1 %)",
+ "confidence": "medium",
+ "model": "batwing",
+ "beam_angle": 150,
+ "batwing_power": 2.5,
+ "notes": "DLI does not publish IES files. Replace with the IES file from DLI or exported from AGi32."
+}

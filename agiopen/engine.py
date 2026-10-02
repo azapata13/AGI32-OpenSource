@@ -7,6 +7,7 @@ from pathlib import Path
 
 import numpy as np
 
+from . import catalog
 from .geometry import Geometry, Rect, build_geometry
 from .photometry import Batwing, CosinePower, Distribution, parse_ies
 from .spec import Fixture, LayoutBlock, ProjectSpec, SpecError
@@ -120,6 +121,14 @@ def distribution_for(f: Fixture, base_dir: Path) -> Distribution:
         key = str(p.resolve())
         if key not in _DIST_CACHE:
             _DIST_CACHE[key] = parse_ies(p)
+        return _DIST_CACHE[key]
+    if f.photometry:
+        key = f"catalog:{f.photometry}"
+        if key not in _DIST_CACHE:
+            try:
+                _DIST_CACHE[key] = catalog.distribution(f.photometry)
+            except catalog.CatalogError as exc:
+                raise SpecError(f"Fixture '{f.id}': {exc}") from None
         return _DIST_CACHE[key]
     key = f"{f.distribution}:{f.beam_angle}:{f.batwing_power}:{f.cos_power}"
     if key not in _DIST_CACHE:

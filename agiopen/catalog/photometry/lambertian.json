@@ -1,0 +1,9 @@
+{
+ "name": "lambertian",
+ "title": "Lambertian (bars, panels)",
+ "source": "Generic cosine distribution",
+ "confidence": "medium",
+ "model": "cosine",
+ "cos_power": 1.0,
+ "notes": "Typical of bare-LED bars and flat panels without secondary optics."
+}

@@ -21,4 +21,4 @@ agiopen = "agiopen.cli:main"
 include = ["agiopen*"]
 
 [tool.setuptools.package-data]
-agiopen = ["intake/prompt.md"]
+agiopen = ["intake/prompt.md", "catalog/*.json", "catalog/photometry/*.json"]

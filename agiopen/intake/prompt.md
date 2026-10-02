@@ -32,7 +32,9 @@ canopies: the crop surface, one rectangle per bay, bench, zone or rack tier. "he
 top of the plants above the floor. Leave a margin of about one fixture half-spacing between
 the outside walls and the canopy in greenhouses.
 
-fixtures: one entry per product. Use the spec sheet values for watts, ppf, warranty, DLC
+fixtures: one entry per product. If the product is in the catalog listed at the end, give only
+{"id": ..., "catalog": "<catalog id>"} plus any value the documents state differently.
+Otherwise use the spec sheet values for watts, ppf, warranty, DLC
 reference and dimensions (length, width). Wide toplights ("WD", "wide", "very wide"):
 distribution "batwing", beam_angle 120-140. Bars and strips: distribution "cosine",
 cos_power 1.0, length = bar length. If an IES file name is mentioned, put it in ies_file.

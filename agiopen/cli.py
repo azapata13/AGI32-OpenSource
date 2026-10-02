@@ -4,6 +4,7 @@
   check    project.json                validate the spec, list what is missing
   results  project.json                print the Results Summary as JSON
   intake   documents... [-o spec.json] draft a spec from client documents (needs ANTHROPIC_API_KEY)
+  catalog  [filter]                    list catalog fixtures (DLI, P.L. Light...) usable as fixtures[].catalog
 """
 from __future__ import annotations
 
@@ -42,7 +43,21 @@ def main(argv: list[str] | None = None) -> int:
     p_in = sub.add_parser("intake")
     p_in.add_argument("documents", nargs="+")
     p_in.add_argument("-o", "--out", default="project.json")
+    p_cat = sub.add_parser("catalog")
+    p_cat.add_argument("filter", nargs="*")
     args = ap.parse_args(argv)
+
+    if args.cmd == "catalog":
+        from . import catalog
+        words = " ".join(args.filter).lower().split()
+        rows = [f for f in catalog.fixtures().values()
+                if all(w in (f["id"] + " " + f["name"]).lower() for w in words)]
+        print(f"{'id':<44}{'W':>7}{'PPF':>7}{'umol/J':>8}  photometry")
+        for f in rows:
+            conf = catalog.photometry(f["photometry"]).get("confidence", "")
+            print(f"{f['id']:<44}{f['watts']:>7g}{f['ppf']:>7g}{f['efficacy']:>8.2f}  {f['photometry']} ({conf})")
+        print(f"{len(rows)} fixture(s)")
+        return 0
 
     if args.cmd == "intake":
         from .intake.extract import extract_spec

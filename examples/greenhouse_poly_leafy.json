@@ -30,17 +30,11 @@
   "fixtures": [
     {
       "id": "nxs",
+      "catalog": "dli-nxs-540w-r85g5b5fr5",
       "name": "NXS 540W 347-400V FR5R85G5B5 MW WD",
-      "family": "Generic 540 W toplight",
-      "manufacturer": "Generic",
       "watts": 546,
       "ppf": 1824,
-      "warranty": "5 year limited warranty",
-      "length": 2.0,
-      "width": 1.0,
-      "distribution": "batwing",
-      "beam_angle": 150,
-      "batwing_power": 2.5
+      "warranty": "5 year limited warranty"
     }
   ],
   "canopies": [

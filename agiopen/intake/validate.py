@@ -14,7 +14,14 @@ def missing_information(spec: ProjectSpec) -> list[str]:
     if not (t.ppfd_min or t.ppfd_max):
         out.append("target: no PPFD or DLI target given; results cannot be judged against a goal.")
     for f in spec.fixtures:
-        if not f.ies_file:
+        if not f.ies_file and f.photometry:
+            from ..catalog import photometry
+            info = photometry(f.photometry)
+            if info.get("confidence") != "high":
+                out.append(f"fixture '{f.id}': no IES file, catalog curve '{f.photometry}' is used "
+                           f"(confidence {info.get('confidence')}: {info.get('source')}). "
+                           "Ask the manufacturer for the IES file.")
+        elif not f.ies_file:
             out.append(f"fixture '{f.id}': no IES file, a generic {f.distribution} distribution is "
                        "used. Add the manufacturer IES file for report-grade accuracy.")
         if not f.warranty:

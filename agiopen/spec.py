@@ -59,6 +59,10 @@ class Fixture:
     warranty: str = ""
     dlc_reference: str = ""
     ies_file: str = ""
+    # Catalog entry id (agiopen/catalog/fixtures.json). Fills every field not given here.
+    catalog: str = ""
+    # Named curve in agiopen/catalog/photometry/, used when there is no IES file.
+    photometry: str = ""
     # Generic distribution used when no IES file: I(theta) = I0 * cos(theta)^n.
     # n = 1 is Lambertian (~120 deg beam). Larger n = narrower beam.
     distribution: str = "batwing"  # batwing (wide toplight) | cosine
@@ -203,6 +207,17 @@ def load_spec(path: str | Path) -> ProjectSpec:
     return spec
 
 
+def _with_catalog(data: dict[str, Any], units: str, i: int) -> dict[str, Any]:
+    if not data.get("catalog"):
+        return data
+    from . import catalog
+    try:
+        base = catalog.fixture_fields(data["catalog"], units)
+    except catalog.CatalogError as exc:
+        raise SpecError(f"fixtures[{i}]: {exc}") from None
+    return {**base, **data}
+
+
 def spec_from_dict(raw: dict[str, Any]) -> ProjectSpec:
     for key in ("meta", "site", "fixtures", "layout"):
         if key not in raw:
@@ -210,7 +225,8 @@ def spec_from_dict(raw: dict[str, Any]) -> ProjectSpec:
     spec = ProjectSpec(
         meta=_build(Meta, raw["meta"], "meta"),
         site=_build(Site, raw["site"], "site"),
-        fixtures=[_build(Fixture, f, f"fixtures[{i}]") for i, f in enumerate(raw["fixtures"])],
+        fixtures=[_build(Fixture, _with_catalog(f, raw["meta"].get("units", "imperial"), i),
+                         f"fixtures[{i}]") for i, f in enumerate(raw["fixtures"])],
         canopies=[_build(Canopy, c, f"canopies[{i}]") for i, c in enumerate(raw.get("canopies", []))],
         layout=[_build(LayoutBlock, b, f"layout[{i}]") for i, b in enumerate(raw["layout"])],
         target=_build(Target, raw.get("target", {}), "target"),

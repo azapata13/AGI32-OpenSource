@@ -12,3 +12,5 @@ read `docs/report-format.md` before touching `agiopen/report/`.
 - The repo is public: never commit client names, addresses, Drive links or confidential guides.
   Benchmarks stay anonymised.
 - Tests: `python -m pytest -q`.
+- Fixture catalog: edit `tools/build_catalog.py`, rerun it, never hand-edit `fixtures.json`.
+  Each photometry curve states its source and confidence; keep that honest.

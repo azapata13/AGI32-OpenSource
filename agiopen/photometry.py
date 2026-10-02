@@ -64,6 +64,36 @@ class Batwing(Distribution):
         return self.k * self._shape(theta)
 
 
+class TabulatedDistribution(Distribution):
+    """Two measured planes, e.g. digitised from a spec-sheet polar plot.
+
+    `i0` is the plane along the fixture length (phi = 0), `i90` the plane across it. Between
+    planes I(theta, phi) = i0 cos^2(phi) + i90 sin^2(phi). Normalised to a flux of 1.
+    """
+
+    def __init__(self, angles_deg, i0, i90=None):
+        self.a = np.radians(np.asarray(angles_deg, dtype=float))
+        self.i0 = np.asarray(i0, dtype=float)
+        self.i90 = self.i0 if i90 is None else np.asarray(i90, dtype=float)
+        if not (len(self.a) == len(self.i0) == len(self.i90)):
+            raise ValueError("Tabulated photometry: angles and planes must have the same length.")
+        th = np.linspace(0, np.pi / 2, 721)
+        ph = np.linspace(0, 2 * np.pi, 181)
+        T, P = np.meshgrid(th, ph, indexing="ij")
+        flux = np.trapezoid(np.trapezoid(self._raw(T, P) * np.sin(T), ph, axis=1), th)
+        self.k = 1.0 / float(flux)
+
+    def _raw(self, theta, phi):
+        theta = np.asarray(theta, dtype=float)
+        c2 = np.cos(np.asarray(phi, dtype=float)) ** 2
+        a = np.interp(theta, self.a, self.i0, right=0.0)
+        b = np.interp(theta, self.a, self.i90, right=0.0)
+        return np.where(theta < np.pi / 2, a * c2 + b * (1 - c2), 0.0)
+
+    def intensity(self, theta, phi):
+        return self.k * self._raw(theta, phi)
+
+
 class IESDistribution(Distribution):
     def __init__(self, vertical: np.ndarray, horizontal: np.ndarray, candela: np.ndarray,
                  width: float = 0.0, length: float = 0.0, header: dict | None = None):

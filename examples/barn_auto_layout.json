@@ -27,15 +27,7 @@
   "fixtures": [
     {
       "id": "tl",
-      "name": "660 W toplight",
-      "family": "Generic 660 W toplight",
-      "manufacturer": "Generic",
-      "watts": 660,
-      "ppf": 1850,
-      "length": 3.6,
-      "width": 0.4,
-      "distribution": "batwing",
-      "beam_angle": 120
+      "catalog": "dli-nxs-670w-r90g5b5"
     }
   ],
   "canopies": [
