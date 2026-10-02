@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "project_name": "Barn Conversion Strawberry",
+    "client": "Grower E",
+    "prepared_for": "Grower E",
+    "site_address": "Ontario, Canada",
+    "company": "Example Hort Lighting",
+    "designer": "J. Designer",
+    "units": "imperial",
+    "design_hours": 0,
+    "information_provided": [
+      "Grange 40 x 80 pi, 12 pi sous les fermes",
+      "Tables de fraises à 3 pi",
+      "Cible 300-350 µmol/m²/s"
+    ],
+    "date": "2026-10-02"
+  },
+  "site": {
+    "type": "indoor_room",
+    "width": 40,
+    "length": 80,
+    "height": 12,
+    "wall_reflectance": 0.5,
+    "ceiling_reflectance": 0.5,
+    "floor_reflectance": 0.2
+  },
+  "fixtures": [
+    {
+      "id": "tl",
+      "name": "660 W toplight",
+      "family": "Generic 660 W toplight",
+      "manufacturer": "Generic",
+      "watts": 660,
+      "ppf": 1850,
+      "length": 3.6,
+      "width": 0.4,
+      "distribution": "batwing",
+      "beam_angle": 120
+    }
+  ],
+  "canopies": [
+    {
+      "label": "Bench zone",
+      "x": 3,
+      "y": 3,
+      "width": 34,
+      "length": 74,
+      "height": 3
+    }
+  ],
+  "layout": [
+    {
+      "fixture": "tl",
+      "mode": "auto",
+      "mounting_height": 9
+    }
+  ],
+  "target": {
+    "ppfd_min": 300,
+    "ppfd_max": 350,
+    "uniformity_min": 0.7
+  }
+}

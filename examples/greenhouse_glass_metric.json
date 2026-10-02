@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "project_name": "Rooftop Retrofit Rev",
+    "client": "Grower D",
+    "prepared_for": "Grower D",
+    "site_address": "Quebec, Canada",
+    "company": "Example Hort Lighting",
+    "designer": "J. Designer",
+    "units": "metric",
+    "design_hours": 11.4,
+    "information_provided": [],
+    "date": "2026-04-29"
+  },
+  "site": {
+    "type": "greenhouse",
+    "width": 70.4,
+    "length": 58.6,
+    "height": 5.5,
+    "bays": 11,
+    "roof": "venlo",
+    "peaks_per_bay": 2,
+    "ridge_height": 6.3,
+    "truss_height": 4.9,
+    "post_spacing": 4.5,
+    "glazing_transmission": 0.8,
+    "structure_reflectance": 0.8
+  },
+  "fixtures": [
+    {
+      "id": "nxs",
+      "name": "NXS 540W 347-400V FR5R85G5B5 MW WD",
+      "family": "Generic 540 W toplight",
+      "manufacturer": "Generic",
+      "watts": 546,
+      "ppf": 1824,
+      "length": 0.6,
+      "width": 0.3,
+      "distribution": "batwing",
+      "beam_angle": 150,
+      "batwing_power": 2.5
+    }
+  ],
+  "canopies": [
+    {
+      "label": "Crop PPFD",
+      "x": 3.05,
+      "y": 0,
+      "width": 64.4,
+      "length": 58.6,
+      "height": 1.0
+    }
+  ],
+  "layout": [
+    {
+      "fixture": "nxs",
+      "mode": "grid",
+      "cols": 22,
+      "rows": 27,
+      "spacing_x": 3.2,
+      "spacing_y": 2.17,
+      "origin_x": 1.6,
+      "origin_y": 1.085,
+      "distance_to_canopy": 1.4
+    }
+  ],
+  "target": {
+    "ppfd_min": 280,
+    "ppfd_max": 320
+  }
+}

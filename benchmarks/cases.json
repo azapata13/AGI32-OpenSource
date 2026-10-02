@@ -1,0 +1,49 @@
+{
+  "note": "Reference values come from production AGi32 reports (client names removed). Geometry was reconstructed from the report pages; the original IES files were not available, so the examples use generic distributions. Goal: average within 10 %.",
+  "cases": [
+    {
+      "id": "GH-POLY-LEAFY",
+      "example": "greenhouse_poly_leafy.json",
+      "reference": {
+        "avg": 180.01,
+        "max": 208,
+        "min": 129,
+        "min_avg": 0.72
+      },
+      "geometry_confidence": "high (26 x 78 ft canopy at 1 ft spacing gives the exact 2028 points of the reference)"
+    },
+    {
+      "id": "GH-GLASS-METRIC",
+      "example": "greenhouse_glass_metric.json",
+      "reference": {
+        "avg": 302.49,
+        "max": 333,
+        "min": 276,
+        "min_avg": 0.91
+      },
+      "geometry_confidence": "low (canopy area matches, fixture grid and mounting reconstructed)"
+    },
+    {
+      "id": "INDOOR-FLOWER",
+      "example": "indoor_flower_room.json",
+      "reference": {
+        "avg": 1263,
+        "max": 1321,
+        "min": 1130,
+        "min_avg": 0.89
+      },
+      "geometry_confidence": "medium (42 full + 62 dimmed in the reference, 38 + 66 in the example)"
+    },
+    {
+      "id": "RACK-PROPAGATION",
+      "example": "vertical_propagation_rack.json",
+      "reference": {
+        "avg": 227.42,
+        "max": 283,
+        "min": 108,
+        "min_avg": 0.47
+      },
+      "geometry_confidence": "medium"
+    }
+  ]
+}

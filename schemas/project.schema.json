@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AGI32 OpenSource ProjectSpec",
+  "type": "object",
+  "required": [
+    "meta",
+    "site",
+    "fixtures",
+    "layout"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "project_name": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "prepared_for": {
+          "type": "string"
+        },
+        "site_address": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "designer": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "integer"
+        },
+        "units": {
+          "type": "string",
+          "enum": [
+            "imperial",
+            "metric"
+          ]
+        },
+        "design_hours": {
+          "type": "number"
+        },
+        "information_provided": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "comparison_labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "project_name"
+      ]
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "greenhouse",
+            "indoor_room",
+            "vertical_rack",
+            "container"
+          ]
+        },
+        "width": {
+          "type": "number"
+        },
+        "length": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "bays": {
+          "type": "integer"
+        },
+        "roof": {
+          "type": "string"
+        },
+        "peaks_per_bay": {
+          "type": "integer"
+        },
+        "ridge_height": {
+          "type": "number"
+        },
+        "truss_height": {
+          "type": "number"
+        },
+        "post_spacing": {
+          "type": "number"
+        },
+        "glazing_transmission": {
+          "type": "number"
+        },
+        "structure_reflectance": {
+          "type": "number"
+        },
+        "wall_reflectance": {
+          "type": "number"
+        },
+        "ceiling_reflectance": {
+          "type": "number"
+        },
+        "floor_reflectance": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "width",
+        "length",
+        "height"
+      ]
+    },
+    "fixtures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "watts": {
+            "type": "number"
+          },
+          "ppf": {
+            "type": "number"
+          },
+          "manufacturer": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "warranty": {
+            "type": "string"
+          },
+          "dlc_reference": {
+            "type": "string"
+          },
+          "ies_file": {
+            "type": "string"
+          },
+          "distribution": {
+            "type": "string",
+            "enum": [
+              "batwing",
+              "cosine"
+            ]
+          },
+          "beam_angle": {
+            "type": "number"
+          },
+          "batwing_power": {
+            "type": "number"
+          },
+          "cos_power": {
+            "type": "number"
+          },
+          "length": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "image": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "watts",
+          "ppf"
+        ]
+      }
+    },
+    "canopies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "length": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "reflectance": {
+            "type": "number"
+          },
+          "group": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "x",
+          "y",
+          "width",
+          "length",
+          "height"
+        ]
+      }
+    },
+    "layout": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fixture": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "grid",
+              "staggered",
+              "rack",
+              "explicit",
+              "auto"
+            ]
+          },
+          "mounting_height": {
+            "type": "number",
+            "nullable": true
+          },
+          "distance_to_canopy": {
+            "type": "number",
+            "nullable": true
+          },
+          "rows": {
+            "type": "integer"
+          },
+          "cols": {
+            "type": "integer"
+          },
+          "spacing_x": {
+            "type": "number"
+          },
+          "spacing_y": {
+            "type": "number"
+          },
+          "origin_x": {
+            "type": "number"
+          },
+          "origin_y": {
+            "type": "number"
+          },
+          "rotation_deg": {
+            "type": "number"
+          },
+          "dimming": {
+            "type": "number"
+          },
+          "canopy": {
+            "type": "string"
+          },
+          "positions": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "group": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fixture"
+        ]
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ppfd_min": {
+          "type": "number"
+        },
+        "ppfd_max": {
+          "type": "number"
+        },
+        "uniformity_min": {
+          "type": "number"
+        }
+      },
+      "required": []
+    },
+    "calc": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "grid_spacing": {
+          "type": "number"
+        },
+        "include_reflections": {
+          "type": "boolean"
+        },
+        "reflection_factor": {
+          "type": "number"
+        },
+        "llf": {
+          "type": "number"
+        },
+        "extra_planes": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": []
+    }
+  }
+}

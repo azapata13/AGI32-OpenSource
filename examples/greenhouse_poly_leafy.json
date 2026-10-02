@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "project_name": "GH Leafy 30x102",
+    "client": "Grower A",
+    "prepared_for": "Grower A",
+    "site_address": "Quebec, Canada",
+    "company": "Example Hort Lighting",
+    "designer": "J. Designer",
+    "units": "imperial",
+    "design_hours": 3.2,
+    "information_provided": [
+      "1 serre de 30 x 102 - 9.5 pieds hauteur - Leafy greens",
+      "PPFD requis = 180-200 µmol/m²/s"
+    ],
+    "date": "2026-06-03"
+  },
+  "site": {
+    "type": "greenhouse",
+    "width": 30,
+    "length": 102,
+    "height": 9.5,
+    "bays": 1,
+    "roof": "gable",
+    "ridge_height": 14,
+    "truss_height": 9,
+    "post_spacing": 12,
+    "glazing_transmission": 0.8,
+    "structure_reflectance": 0.5
+  },
+  "fixtures": [
+    {
+      "id": "nxs",
+      "name": "NXS 540W 347-400V FR5R85G5B5 MW WD",
+      "family": "Generic 540 W toplight",
+      "manufacturer": "Generic",
+      "watts": 546,
+      "ppf": 1824,
+      "warranty": "5 year limited warranty",
+      "length": 2.0,
+      "width": 1.0,
+      "distribution": "batwing",
+      "beam_angle": 150,
+      "batwing_power": 2.5
+    }
+  ],
+  "canopies": [
+    {
+      "label": "Plant Canopy",
+      "x": 2,
+      "y": 12,
+      "width": 26,
+      "length": 78,
+      "height": 4
+    }
+  ],
+  "layout": [
+    {
+      "fixture": "nxs",
+      "mode": "grid",
+      "cols": 3,
+      "rows": 12,
+      "spacing_x": 7.5,
+      "spacing_y": 8.5,
+      "origin_x": 7.5,
+      "origin_y": 4.25,
+      "mounting_height": 8
+    }
+  ],
+  "target": {
+    "ppfd_min": 180,
+    "ppfd_max": 200,
+    "uniformity_min": 0.7
+  },
+  "calc": {
+    "grid_spacing": 1
+  }
+}

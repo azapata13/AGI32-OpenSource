@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "project_name": "Propagation Racking V2",
+    "client": "Grower C",
+    "prepared_for": "Grower C",
+    "site_address": "Texas, USA",
+    "company": "Example Hort Lighting",
+    "designer": "J. Designer",
+    "units": "imperial",
+    "design_hours": 4.4,
+    "information_provided": [
+      "1 rack 3 x 8 pi, 3 niveaux",
+      "Barres LED 4 pi à 8 po au-dessus des plateaux"
+    ],
+    "date": "2026-01-09"
+  },
+  "site": {
+    "type": "vertical_rack",
+    "width": 16,
+    "length": 16,
+    "height": 10,
+    "wall_reflectance": 0.79,
+    "ceiling_reflectance": 0.79,
+    "floor_reflectance": 0.2
+  },
+  "fixtures": [
+    {
+      "id": "bar4",
+      "name": "4 ft PKR bar",
+      "description": "VAL2 L48 PKR",
+      "family": "Generic 4 ft LED bar",
+      "manufacturer": "Generic",
+      "watts": 32,
+      "ppf": 90,
+      "warranty": "5 year limited warranty",
+      "cos_power": 1.0,
+      "length": 4,
+      "width": 0.1,
+      "distribution": "cosine"
+    }
+  ],
+  "canopies": [
+    {
+      "label": "Plant Canopy L1",
+      "x": 6.5,
+      "y": 4,
+      "width": 3,
+      "length": 8,
+      "height": 1.5
+    },
+    {
+      "label": "Plant Canopy L2",
+      "x": 6.5,
+      "y": 4,
+      "width": 3,
+      "length": 8,
+      "height": 3.5
+    },
+    {
+      "label": "Plant Canopy L3",
+      "x": 6.5,
+      "y": 4,
+      "width": 3,
+      "length": 8,
+      "height": 5.5
+    }
+  ],
+  "layout": [
+    {
+      "fixture": "bar4",
+      "mode": "rack",
+      "cols": 4,
+      "distance_to_canopy": 0.6667
+    }
+  ],
+  "target": {
+    "ppfd_min": 200,
+    "ppfd_max": 250
+  },
+  "calc": {
+    "grid_spacing": 0.5
+  }
+}
